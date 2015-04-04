@@ -7,7 +7,6 @@ Created on Sat Apr  4 12:57:08 2015
 
 """
 
-from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
 
 import numpy as np
