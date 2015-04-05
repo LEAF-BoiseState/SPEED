@@ -19,18 +19,22 @@ xr = 100.0   # Right-hand extent of domain [m]
 
 ti = 0.0     # Initial time [s]
 tf = 100.0   # Final time [s]
-dx = 1.0     # Spatial step [m]
-dt = 0.25    # Time step [s]
+dx = 0.25     # Spatial step [m]
 
-u  = 1.0    # Advection wind speed [m/s]
+u  = 1.5    # Advection wind speed [m/s]
 
 Pi = 50.0    # Initial number of seeds present in first 1 m
 
 plot_tstep = 15.0 # Time interval between plots
 
+Cmax = 0.95
+
 #==================================#
 # 2. Define time and space vectors #
 #==================================#
+# Back-calculate dt for a maximum Courant condition to ensure stability
+dt = Cmax*dx/u
+
 x = np.arange(xl,xr+dx,dx)
 t = np.arange(ti,tf+dt,dt)
 
@@ -91,7 +95,7 @@ plt.show()
 T, X = np.meshgrid(t, x)
 fig2 = plt.figure(2)
 ax2 = fig2.gca(projection='3d')
-ax2.plot_surface(X, T, P, rstride=1, cstride=1, cmap=cm.jet, linewidth=0)
+ax2.plot_surface(X, T, P, rstride=1, cstride=1, cmap=cm.Spectral, linewidth=0)
 ax2.set_xlabel('Time [s]')
 ax2.set_ylabel('Distance [m]')
 ax2.set_zlabel('Seed numbers [#]')
