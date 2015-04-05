@@ -21,12 +21,14 @@ xr = 2000.0
 nx = 100
 nt = 200
 
-Ks  = 3000
+Ks  = 1500
 
 hri = 8.0
 hrf = 8.0
 hli = 7.0
 hlf = 3.0
+
+plot_tstep = 60.0
 
 x = np.linspace(xl,xr,nx)
 t = np.linspace(ti,tf,nt)
@@ -72,14 +74,24 @@ for i in range(len(t)):
         hnext = np.dot(np.linalg.pinv(A), hinit)
         h[:,i] = hnext
     
-    # Plot simulated pressure head
+    # Plot simulated pressure head every mod(i,floor(plot_tstep/dt))==0 steps
+    if (i==0) or (np.mod(float(i),np.floor(plot_tstep/deltat)) == 0):
+        fig1 = plt.figure(1)
+        plt.plot(x,h[:,i],'b')
+        
+
+plt.xlabel('Distance [m]')
+plt.ylabel('Pressure head [m]')
+plt.show()
 
 """
 Make a 3-D surface plot
 """    
 T, X = np.meshgrid(t, x)
-fig = plt.figure(2)
-ax = fig.gca(projection='3d')
-ax.plot_surface(T, X, h, cmap=cm.jet)
-
+fig2 = plt.figure(2)
+ax2 = fig2.gca(projection='3d')
+ax2.plot_surface(T, X, h, cmap=cm.jet)
+ax2.set_xlabel('Time [yr]')
+ax2.set_ylabel('Distance [m]')
+ax2.set_zlabel('Pressure head [m]')
 
