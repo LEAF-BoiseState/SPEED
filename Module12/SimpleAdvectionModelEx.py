@@ -5,6 +5,7 @@ Created on Sat Apr  4 20:43:53 2015
 @author: lejoflores
 """
 from matplotlib import cm
+from mpl_toolkits.mplot3d import Axes3D
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -94,8 +95,10 @@ plt.show()
 
 T, X = np.meshgrid(t, x)
 fig2 = plt.figure(2)
-ax2 = fig2.gca(projection='3d')
-ax2.plot_surface(X, T, P, rstride=1, cstride=1, cmap=cm.Spectral, linewidth=0)
+ax2 = fig2.add_subplot(111, projection='3d')
+#ax2 = fig2.gca(projection='3d')
+ax2.plot_surface(X, T, P, cstride=1, rstride=1, edgecolor='#000000',
+                 cmap=cm.RdYlBu_r, linewidth=0, antialiased=False)
 ax2.set_xlabel('Time [s]')
 ax2.set_ylabel('Distance [m]')
 ax2.set_zlabel('Seed numbers [#]')
