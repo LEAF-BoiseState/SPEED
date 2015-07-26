@@ -37,6 +37,8 @@ SM_filename = 'BogusBasin_SM_WY2011.csv' # This is the name of the file to be re
 SM_plot = np.linspace(-5.0, 35.0, 1000)
 bins = np.linspace(-5.0, 35.0, 10)
 
+bw = bins[1] - bins[0]
+
 fig, ax = plt.subplots(2,2)
 
 # Histogram 1
